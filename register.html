@@ -17,6 +17,33 @@
     <p>Sudah punya akun? <a href="index.html">Login di sini</a></p>
     <p id="registerMessage"></p>
   </div>
-  <script src="script.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('registerUsername').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      const message = document.getElementById('registerMessage');
+      if (!username || !password) {
+        message.textContent = "Username dan password wajib diisi.";
+        message.style.color = "red";
+        return;
+      }
+
+      // Cek apakah username sudah ada
+      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[username]) {
+        message.textContent = "Username sudah terdaftar, silakan pilih username lain.";
+        message.style.color = "red";
+        return;
+      }
+
+      // Simpan user baru
+      users[username] = password;
+      localStorage.setItem('users', JSON.stringify(users));
+      message.textContent = "Registrasi berhasil! Silakan login.";
+      message.style.color = "green";
+      document.getElementById('registerForm').reset();
+    });
+  </script>
 </body>
 </html>
