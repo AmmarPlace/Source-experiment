@@ -1,14 +1,10 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
+// Register
+document.getElementById("registerForm")?.addEventListener("submit", function (e) {
   e.preventDefault();
+  const username = document.getElementById("registerUsername").value.trim();
+  const password = document.getElementById("registerPassword").value.trim();
 
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-
-  if (username && password) {
-    // Simpan ke Local Storage
-    localStorage.setItem("user", JSON.stringify({ username, password }));
-    document.getElementById("message").textContent = "Login berhasil! Data disimpan.";
+  if (localStorage.getItem(username)) {
+    document.getElementById("registerMessage").textContent = "Username sudah digunakan.";
   } else {
-    document.getElementById("message").textContent = "Isi semua kolom!";
-  }
-});
+    localStorage.set
