@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Selamat Datang, <span id="userWelcome"></span>!</h2>
+    <p>Ini adalah halaman beranda setelah login.</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+  <script>
+    const user = localStorage.getItem("loggedInUser");
+    if (!user) window.location.href = "index.html";
+    document.getElementById("userWelcome").textContent = user;
+
+    function logout() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
