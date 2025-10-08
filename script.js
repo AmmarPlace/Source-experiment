@@ -1,21 +1,19 @@
-// Register
-document.getElementById("registerForm")?.addEventListener("submit", function (e) {
+// Login
+document.getElementById("loginForm")?.addEventListener("submit", function (e) {
   e.preventDefault();
-  const username = document.getElementById("registerUsername").value.trim();
-  const password = document.getElementById("registerPassword").value.trim();
+  const username = document.getElementById("loginUsername").value.trim();
+  const password = document.getElementById("loginPassword").value.trim();
 
   if (!username || !password) {
-    document.getElementById("registerMessage").textContent = "Username dan password wajib diisi!";
+    document.getElementById("loginMessage").textContent = "Username dan password wajib diisi!";
     return;
   }
 
-  if (localStorage.getItem(username)) {
-    document.getElementById("registerMessage").textContent = "Username sudah digunakan.";
+  const storedPassword = localStorage.getItem(username);
+  if (storedPassword && storedPassword === password) {
+    // Login berhasil, redirect ke home.html
+    window.location.href = "home.html";
   } else {
-    // Simpan data user ke localStorage
-    localStorage.setItem(username, password);
-    document.getElementById("registerMessage").textContent = "Registrasi berhasil! Silakan login.";
-    // Reset form
-    document.getElementById("registerForm").reset();
+    document.getElementById("loginMessage").textContent = "Username atau password salah!";
   }
 });
