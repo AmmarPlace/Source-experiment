@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,21 +6,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Beranda</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Tab styling, minimal to blend with style.css */
+    .tabs {
+      display: flex;
+      margin-top: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .tab.active {
+      border-bottom: 2px solid #3b82f6;
+      font-weight: bold;
+      color: #3b82f6;
+      background: #f3f4f6;
+    }
+    .tab-content {
+      padding: 20px 0;
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h2>Selamat Datang, <span id="userWelcome"></span>!</h2>
     <p>Ini adalah halaman beranda setelah login.</p>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab(0)">Profil</button>
+      <button class="tab" onclick="showTab(1)">Pengaturan</button>
+      <button class="tab" onclick="showTab(2)">Bantuan</button>
+    </div>
+    <div id="tab0" class="tab-content active">
+      <h3>Profil</h3>
+      <p>Nama pengguna: <span id="profileName"></span></p>
+      <p>Selamat datang di halaman profil Anda.</p>
+    </div>
+    <div id="tab1" class="tab-content">
+      <h3>Pengaturan</h3>
+      <p>Di sini Anda bisa mengatur preferensi akun Anda.</p>
+      <ul>
+        <li>Ganti kata sandi</li>
+        <li>Notifikasi</li>
+      </ul>
+    </div>
+    <div id="tab2" class="tab-content">
+      <h3>Bantuan</h3>
+      <p>Untuk bantuan lebih lanjut, silakan hubungi admin atau lihat FAQ.</p>
+    </div>
     <button onclick="logout()">Logout</button>
   </div>
   <script>
     const user = localStorage.getItem("loggedInUser");
     if (!user) window.location.href = "index.html";
     document.getElementById("userWelcome").textContent = user;
+    document.getElementById("profileName").textContent = user;
 
     function logout() {
       localStorage.removeItem("loggedInUser");
       window.location.href = "index.html";
+    }
+
+    function showTab(idx) {
+      const tabButtons = document.querySelectorAll('.tab');
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabButtons.forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+        tabContents[i].classList.toggle('active', i === idx);
+      });
     }
   </script>
 </body>
